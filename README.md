@@ -5,7 +5,7 @@ Sinatra-Bootstrap generator helps you to start with a sinatra ready application 
 
 Also has optional support for for background jobs with sidekiq, database connection with postgres and active record, it is heroku ready and API support with grape.
 
-> [Yeoman](http://yeoman.io) generator
+![alt text](docs/screenshots/picture1.png "Example app")
 
 Helps you to scaffold you sinatra app in one command.
 
