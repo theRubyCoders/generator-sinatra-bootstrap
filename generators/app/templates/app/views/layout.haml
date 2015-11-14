@@ -1,0 +1,33 @@
+!!!
+%html
+  %head
+    %meta{ charset: "utf-8"}
+    %meta{ content: "width=device-width, initial-scale=1", name: "viewport"}
+
+    %title
+      My Application
+
+    = stylesheet_tag 'app'
+    = javascript_tag 'app'
+
+  %body
+    .navbar.navbar-default.navbar-static-top
+      .container
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{:href => "#"} Brand
+        .collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li.active
+              %a{:href => "#"} Home
+            %li
+              %a{:href => "#contact"} Contact
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              %a{:href => "#about"} About
+
+    .container
+      = yield

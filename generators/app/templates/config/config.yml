@@ -1,0 +1,7 @@
+development: &common_settings
+  google_analytics_ua: UA-000000-0
+
+
+production:
+  <<: *common_settings
+  google_analytics_ua: UA-000000-0
