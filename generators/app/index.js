@@ -115,7 +115,11 @@ module.exports = yeoman.generators.Base.extend({
         this.destinationPath('Gemfile'),
         this.promptAnswers
       );
-
+      this.fs.copyTpl(
+        this.templatePath('_Rakefile'),
+        this.destinationPath('Rakefile'),
+        this.promptAnswers
+      );
       this.fs.copyTpl(
         this.templatePath('_config.ru'),
         this.destinationPath('config.ru'),
@@ -124,6 +128,11 @@ module.exports = yeoman.generators.Base.extend({
       this.fs.copyTpl(
         this.templatePath('_config_environment.rb'),
         this.destinationPath('config/environment.rb'),
+        this.promptAnswers
+      );
+      this.fs.copyTpl(
+        this.templatePath('_README.md'),
+        this.destinationPath('README.md'),
         this.promptAnswers
       );
     },

@@ -1,5 +1,9 @@
 # generator-sinatra-bootstrap
-Yeoman generator for a sinatra with bootstrap application
+Yeoman generator for a sinatra with twitter bootstrap.
+
+Sinatra-Bootstrap generator helps you to start with a sinatra ready application which has support for Compass, Sass, Haml, Rspec and debugger tools to prototype easily.
+
+Also has optional support for for background jobs with sidekiq, database connection with postgres and active record, it is heroku ready and API support with grape.
 
 > [Yeoman](http://yeoman.io) generator
 
