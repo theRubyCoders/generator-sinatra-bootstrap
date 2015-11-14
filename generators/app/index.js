@@ -9,6 +9,9 @@ module.exports = yeoman.generators.Base.extend({
   prompting: function () {
     var done = this.async();
 
+    // Hash to store user answers
+    this.promptAnswers = {};
+
     // Have Yeoman greet the user.
     this.log(yosay(
       'Welcome to the top-notch ' + chalk.red('SinatraBootstrap') + ' generator!'
@@ -25,21 +28,37 @@ module.exports = yeoman.generators.Base.extend({
       shelljs.exit(1);
     }
 
-
-
     var prompts = [{
       name: 'appName',
       message: 'What is your app\'s name ?'
     },{
       type: 'confirm',
-      name: 'addSidekiq',
-      message: 'Would you like to enable sidekiq?',
+      name: 'addDatabase',
+      message: 'Would you like to enable database support?',
+      default: true
+    },{
+      type: 'confirm',
+      name: 'addBackgroundJobs',
+      message: 'Would you like to enable background jobs support?',
+      default: true
+    },{
+      type: 'confirm',
+      name: 'addApi',
+      message: 'Would you like to have API support?',
+      default: true
+    },{
+      type: 'confirm',
+      name: 'addHeroku',
+      message: 'Would you like to have Heroku support?',
       default: true
     }];
 
     this.prompt(prompts, function (props) {
-      this.appName = props.appName;
-      this.enableSidekiq = props.addSidekiq;
+      this.promptAnswers.appName = props.appName;
+      this.promptAnswers.addDatabase = props.addDatabase;
+      this.promptAnswers.addBackgroundJobs = props.addBackgroundJobs;
+      this.promptAnswers.addApi = props.addApi;
+      this.promptAnswers.addHeroku = props.addHeroku;
 
       done();
     }.bind(this));
@@ -56,12 +75,13 @@ module.exports = yeoman.generators.Base.extend({
       for(i; i < files.length; i++){
         this.fs.copyTpl(
           this.templatePath('_' + files[i]),
-          this.destinationPath(files[i])
+          this.destinationPath(files[i]),
+          this.promptAnswers
         );
       }
     },
     directories: function() {
-      var dirs = ['app', 'config', 'db', 'lib', 'log', 'spec', 'vendor', 'public'];
+      var dirs = ['app', 'config', 'lib', 'log', 'spec', 'vendor', 'public'];
       var i = 0;
       for(i; i < dirs.length; i++){
         this.directory(
@@ -81,7 +101,7 @@ module.exports = yeoman.generators.Base.extend({
       }
     },
     projectfiles: function () {
-      var files = ['app.rb', 'config.ru', 'Gemfile', 'Procfile', 'Rakefile', 'README.md'];
+      var files = ['app.rb', 'README.md'];
       var i = 0;
       for(i; i < files.length; i++){
         this.fs.copy(
@@ -89,6 +109,80 @@ module.exports = yeoman.generators.Base.extend({
           this.destinationPath(files[i])
         );
       }
+
+      this.fs.copyTpl(
+        this.templatePath('_Gemfile'),
+        this.destinationPath('Gemfile'),
+        this.promptAnswers
+      );
+
+      this.fs.copyTpl(
+        this.templatePath('_config.ru'),
+        this.destinationPath('config.ru'),
+        this.promptAnswers
+      );
+      this.fs.copyTpl(
+        this.templatePath('_config_environment.rb'),
+        this.destinationPath('config/environment.rb'),
+        this.promptAnswers
+      );
+    },
+    addBackgroundJobsSupport: function () {
+      if (!this.promptAnswers.addBackgroundJobs){
+        return true;
+      }
+
+      this.fs.copy(
+        this.templatePath('config_initializers_sidekiq.rb'),
+        this.destinationPath('config/initializers/sidekiq.rb')
+      );
+      this.fs.copy(
+        this.templatePath('config_sidekiq.yml'),
+        this.destinationPath('config/sidekiq.yml')
+      );
+    },
+    addDatabaseSupport: function () {
+      if (!this.promptAnswers.addDatabase){
+        return true;
+      }
+
+      this.directory(
+        this.templatePath('db'),
+        this.destinationPath('db')
+      );
+      this.directory(
+        this.templatePath('app_models'),
+        this.destinationPath('app/models')
+      );
+      this.fs.copyTpl(
+        this.templatePath('config_database.yml'),
+        this.destinationPath('config/database.yml'),
+        this.promptAnswers
+      );
+    },
+    addApiSupport: function () {
+      if (!this.promptAnswers.addApi){
+        return true;
+      }
+    },
+    addHerokuSupport: function () {
+      if (!this.promptAnswers.addHeroku){
+        return true;
+      }
+
+      var files = ['Procfile', 'buildpacks'];
+      var i = 0;
+      for(i; i < files.length; i++){
+        this.fs.copy(
+          this.templatePath(files[i]),
+          this.destinationPath(files[i])
+        );
+      }
+
+      this.fs.copy(
+        this.templatePath('config_unicorn.rb'),
+        this.destinationPath('config/unicorn.rb')
+      );
     }
   },
 

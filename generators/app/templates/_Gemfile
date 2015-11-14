@@ -6,9 +6,7 @@ gem 'compass'
 gem 'dotenv'
 gem 'haml'
 gem 'newrelic_rpm'
-gem 'pg'
 gem 'rake'
-gem 'sidekiq'
 gem 'sinatra',                require: 'sinatra/base'
 gem 'sinatra-activerecord',   require: 'sinatra/activerecord'
 gem 'sinatra-asset-pipeline', require: 'sinatra/asset_pipeline'
@@ -16,7 +14,28 @@ gem 'sinatra-contrib',        require: 'sinatra/contrib'
 gem 'sinatra-partial',        require: 'sinatra/partial'
 gem 'tilt', '1.4.1'
 gem 'uglifier'
+
+<% if (addDatabase){ %>
+# Database support enabled
+gem 'pg'
+<% } %>
+
+<% if (addBackgroundJobs){ %>
+# Background Job support enabled
+gem 'sidekiq'
+gem 'sidekiq-failures'
+gem 'sidekiq-unique-jobs'
+<% } %>
+
+<% if (addDatabase){ %>
+# Database support enabled
+gem 'grape'
+<% } %>
+
+<% if (addBackgroundJobs){ %>
+# Heroku support enabled
 gem 'unicorn'
+<% } %>
 
 group :test, :development do
   gem 'better_errors'

@@ -2,6 +2,9 @@ ENV['RACK_ENV'] ||= 'development'
 require 'bundler'
 Bundler.require :default, ENV['RACK_ENV'].to_sym
 
+require 'dotenv'
+Dotenv.load
+
 if ENV['RACK_ENV'] != 'production'
   require 'better_errors'
 end
@@ -11,7 +14,9 @@ Dir.glob('./app/{models,routes}/**/*.rb').each { |file| require file }
 
 class App < Sinatra::Base
   configure do
+    <% if (addDatabase){ %>
     register Sinatra::ActiveRecordExtension
+    <% } %>
     register Sinatra::Contrib
     register Sinatra::Partial
 
@@ -22,7 +27,9 @@ class App < Sinatra::Base
 
     set :root, File.expand_path('..', File.dirname(__FILE__))
     set :partial_template_engine, :haml
+    <% if (addDatabase){ %>
     set :database_file, "config/database.yml"
+    <% } %>
     set :environments, %w{development test production}
     set :views, Proc.new { File.join(root, "app/views") }
 
