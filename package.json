@@ -1,6 +1,6 @@
 {
   "name": "generator-sinatra-bootstrap",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Yeoman generator",
   "license": "MIT",
   "main": "app/index.js",
@@ -8,7 +8,7 @@
   "author": {
     "name": "Adrian Castillo",
     "email": "rodacato@gmail.com",
-    "url": "https://github.com/therubyc"
+    "url": "https://github.com/rodacato"
   },
   "scripts": {
     "test": "mocha"
@@ -17,7 +17,11 @@
     "generators"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "sinatra",
+    "twitter bootstrap",
+    "sidekiq",
+    "postgresql"
   ],
   "dependencies": {
     "yeoman-generator": "^0.19.0",
