@@ -1,5 +1,5 @@
 module Sinatra
-  module App
+  module Web
     module Routing
       module Homepage
         def self.registered(app)

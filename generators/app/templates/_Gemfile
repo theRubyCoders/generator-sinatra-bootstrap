@@ -27,7 +27,7 @@ gem 'sidekiq-failures'
 gem 'sidekiq-unique-jobs'
 <% } %>
 
-<% if (addDatabase){ %>
+<% if (addApi){ %>
 # Database support enabled
 gem 'grape'
 <% } %>

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/app'
 require 'rspec/core/rake_task'
 
 require 'sinatra/asset_pipeline/task'
-Sinatra::AssetPipeline::Task.define! App
+Sinatra::AssetPipeline::Task.define! Web
 
 <% if (addDatabase){ %>
 require "sinatra/activerecord/rake"

@@ -101,7 +101,7 @@ module.exports = yeoman.generators.Base.extend({
       }
     },
     projectfiles: function () {
-      var files = ['app.rb', 'README.md'];
+      var files = ['app.rb'];
       var i = 0;
       for(i; i < files.length; i++){
         this.fs.copy(
@@ -173,6 +173,15 @@ module.exports = yeoman.generators.Base.extend({
       if (!this.promptAnswers.addApi){
         return true;
       }
+
+      this.directory(
+        this.templatePath('spec_api'),
+        this.destinationPath('spec/api')
+      );
+      this.directory(
+        this.templatePath('app_api'),
+        this.destinationPath('app/api')
+      );
     },
     addHerokuSupport: function () {
       if (!this.promptAnswers.addHeroku){

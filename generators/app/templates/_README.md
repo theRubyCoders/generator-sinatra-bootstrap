@@ -58,8 +58,13 @@ For more information how to use it, visit: https://github.com/mperham/sidekiq
 <% if (addApi){ %>
 ## API support
 
-This support is on progress
+usage:
 
+This applicaiton implement an API grape application, to accees to the example endpoint visit:
+
+   http://localhost:9393/api/v1/hello
+
+For more information how to use it, visit: https://github.com/ruby-grape/grape#basic-usage
 <% } %>
 
 <% if (addHeroku){ %>

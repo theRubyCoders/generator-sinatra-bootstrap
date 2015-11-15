@@ -10,9 +10,9 @@ if ENV['RACK_ENV'] != 'production'
 end
 
 # Load models and workers
-Dir.glob('./app/{models,routes}/**/*.rb').each { |file| require file }
+Dir.glob('./app/{models,routes,api}/**/*.rb').each { |file| require file }
 
-class App < Sinatra::Base
+class Web < Sinatra::Base
   configure do
     <% if (addDatabase){ %>
     register Sinatra::ActiveRecordExtension

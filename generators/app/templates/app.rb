@@ -2,9 +2,9 @@ $:.unshift File.expand_path('lib', File.dirname(__FILE__))
 
 require_relative 'config/environment'
 
-class App < Sinatra::Base
+class Web < Sinatra::Base
   # Define routes
-  register Sinatra::App::Routing::Homepage
+  register Sinatra::Web::Routing::Homepage
 
   # Errors
   not_found do
