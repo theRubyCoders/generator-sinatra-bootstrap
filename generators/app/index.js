@@ -188,14 +188,15 @@ module.exports = yeoman.generators.Base.extend({
         return true;
       }
 
-      var files = ['Procfile', 'buildpacks'];
-      var i = 0;
-      for(i; i < files.length; i++){
-        this.fs.copy(
-          this.templatePath(files[i]),
-          this.destinationPath(files[i])
-        );
-      }
+      this.fs.copy(
+        this.templatePath('Procfile'),
+        this.destinationPath('Procfile')
+      );
+
+      this.fs.copy(
+        this.templatePath('buildpack'),
+        this.destinationPath('.buildpack')
+      );
 
       this.fs.copy(
         this.templatePath('config_unicorn.rb'),

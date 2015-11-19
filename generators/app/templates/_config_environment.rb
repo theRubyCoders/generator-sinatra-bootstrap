@@ -9,6 +9,9 @@ if ENV['RACK_ENV'] != 'production'
   require 'better_errors'
 end
 
+# Load all libraries
+require_all 'lib/**/*.rb'
+
 # Load models and workers
 Dir.glob('./app/{models,routes,api}/**/*.rb').each { |file| require file }
 
